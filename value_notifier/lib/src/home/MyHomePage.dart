@@ -11,15 +11,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final counter = Counter();
+  final counterInstance = Counter();
 
-  @override
-  void initState() {
-    super.initState();
-    counter.addListener(() {
-      setState(() {});
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   counter.addListener(() {
+  //     setState(() {});
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,29 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '${counter.value}',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            ValueListenableBuilder<int>(
+              valueListenable: counterInstance,
+              builder: (context, value, child) {
+                return Text(
+                  '$value',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                );
+              },
+            )
+            // AnimatedBuilder(
+            //   animation: counter,
+            //   builder: (context, child) {
+            //     return Text(
+            //       '${counter.value}',
+            //       style: Theme.of(context).textTheme.headlineLarge,
+            //     );
+            //   },
+            // )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: counter.increment,
+        onPressed: counterInstance.increment,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
