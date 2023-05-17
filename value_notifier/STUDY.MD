@@ -17,6 +17,15 @@ var func = (){
 }
 ```
 
+### - ChangeNotifier
+
+Classe que pode ser estendida e possui métodos notifyListener() e addListener();
+```
+var func = (){
+    print('a');
+}
+```
+
 ## 📚 Content flashcards questions checklist:
 
 - [x] q1
