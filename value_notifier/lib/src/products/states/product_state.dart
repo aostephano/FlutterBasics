@@ -1,14 +1,13 @@
 import '../models/product_model.dart';
 
 abstract class ProductState {}
-//Inicial, Success, Error, Loading
 
 class InitialProductState extends ProductState {}
 
-class SucessProductState extends ProductState {
+class SuccessProductState extends ProductState {
   final List<ProductModel> products;
 
-  SucessProductState(this.products);
+  SuccessProductState(this.products);
 }
 
 class LoadingProductState extends ProductState {}

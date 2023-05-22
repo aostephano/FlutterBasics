@@ -11,38 +11,29 @@ void main() {
   final service = ProductServiceMock();
   final store = ProductStore(service);
 
-  testWidgets('Deve alterar estado para sucesso', (tester) async {
+  test('Deve alterar estado para sucesso', () async {
     when(() => service.fetchProducts()).thenAnswer((_) async => []);
 
-    await store.fetchProducts();
-
-    //Fluxo de States que deve seguir
     expect(
-        store,
-        emitValues(
-          [
-            isA<LoadingProductState>(),
-            isA<SucessProductState>(),
-          ],
-        ));
+      store,
+      emitValues([
+        isA<LoadingProductState>(),
+        isA<SuccessProductState>(),
+      ]),
+    );
+
+    await store.fetchProducts();
   });
 
-  testWidgets('Deve alterar estado para erro', (tester) async {
+  test('Deve alterar estado para error', () async {
     when(() => service.fetchProducts()).thenThrow(Exception('Error'));
-
-    await store.fetchProducts();
-
-    // expect(store.value, isA<ErrorProductState>());
-    //Fluxo de States que deve seguir
     expect(
-        store,
-        emitValues(
-          [
-            isA<LoadingProductState>(),
-            isA<ErrorProductState>(),
-          ],
-        ));
+      store,
+      emitValues([
+        isA<LoadingProductState>(),
+        isA<ErrorProductState>(),
+      ]),
+    );
+    await store.fetchProducts();
   });
-
-  // testWidgets(description, (widgetTester) => null)
 }

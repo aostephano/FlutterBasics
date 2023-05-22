@@ -1,67 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:uno/uno.dart';
-import 'package:value_notifier/src/products/services/products_service.dart';
-import 'package:value_notifier/src/products/states/product_state.dart';
+import 'package:provider/src/provider.dart';
 import 'package:value_notifier/src/products/stores/product_store.dart';
 
+import 'states/product_state.dart';
+
 class ProductPage extends StatefulWidget {
-  ProductPage({super.key});
+  const ProductPage({Key? key}) : super(key: key);
 
   @override
   State<ProductPage> createState() => _ProductPageState();
 }
 
 class _ProductPageState extends State<ProductPage> {
-  final store = ProductStore(ProductService(Uno()));
-
   @override
   void initState() {
-    // Fetch products when Initialize app
     super.initState();
-    store.fetchProducts();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      context.read<ProductStore>().fetchProducts();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final store = context.watch<ProductStore>();
+    final state = store.value;
+    Widget? child;
+    if (state is LoadingProductState) {
+      child = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (state is ErrorProductState) {
+      child = Center(
+        child: Text(state.message),
+      );
+    }
+    if (state is SuccessProductState) {
+      child = ListView.builder(
+        itemCount: state.products.length,
+        itemBuilder: (_, index) {
+          final product = state.products[index];
+          return ListTile(
+            title: Text(product.title),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Product Page',
-        ),
+        title: const Text('Product Page'),
       ),
-      body: ValueListenableBuilder(
-        valueListenable: store,
-        builder: (_, state, child) {
-          if (state is LoadingProductState) {
-            const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is ErrorProductState) {
-            Center(
-              child: Text(state.message),
-            );
-          }
-          if (state is SucessProductState) {
-            return ListView.builder(
-              itemCount: state.products.length,
-              itemBuilder: (_, index) {
-                final product = state.products[index];
-                return ListTile(
-                  title: Text('$product.title'),
-                );
-              },
-            );
-          }
-          if (state is InitialProductState) {
-            return Container(
-              child: Text("No products yet"),
-            );
-          }
-          //InitialProductState
-          return Container();
-        },
-      ),
+      body: child ?? Container(),
     );
   }
 }
