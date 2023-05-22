@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter Web",
+            "request": "launch",
+            "type": "dart",
+            "program": "web",
+            "cwd": "${workspaceFolder}"
+          },
+        {
+            "name": "value_notifier",
+            "cwd": "value_notifier",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "value_notifier (profile mode)",
+            "cwd": "value_notifier",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "value_notifier (release mode)",
+            "cwd": "value_notifier",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "front",
+            "cwd": "dartion/front",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "front (profile mode)",
+            "cwd": "dartion/front",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "front (release mode)",
+            "cwd": "dartion/front",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

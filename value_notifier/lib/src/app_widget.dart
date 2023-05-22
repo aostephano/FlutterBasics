@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:value_notifier/src/products/product_page.dart';
 
-import 'home/MyHomePage.dart';
+import 'home/my_home_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -12,7 +13,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ProductPage(),
     );
   }
 }

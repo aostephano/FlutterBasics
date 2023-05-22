@@ -13,14 +13,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final counterInstance = Counter();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   counter.addListener(() {
-  //     setState(() {});
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
